@@ -13,6 +13,7 @@ Route::get('/forum', function () {
 Route::get('/resources', function () {
     return view('resources');
 })->name('resources');
+Route::get('/resource/{id}', [App\Http\Controllers\ResourceController::class, 'show'])->name('resource.show');
 
 Route::get('/projects', function () {
     return view('projects');

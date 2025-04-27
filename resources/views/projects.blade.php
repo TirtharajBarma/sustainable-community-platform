@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="bg-white min-h-screen py-8">
+<div class=" min-h-screen py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header Section -->
         <div class="flex justify-between items-center mb-6">
