@@ -17,14 +17,14 @@
         <!-- Search and Filter Bar -->
         <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
             <div class="relative flex-grow">
-                <input type="text" placeholder="Search resources..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-sm sm:text-base">
+                <input type="text" id="searchInput" placeholder="Search resources..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-sm sm:text-base">
             </div>
             <div class="relative w-full sm:w-48">
-                <select class="w-full px-3 py-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-green-500 text-sm sm:text-base">
-                    <option>All Types</option>
-                    <option>Guides</option>
-                    <option>Videos</option>
-                    <option>Articles</option>
+                <select id="typeFilter" class="w-full px-3 py-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-green-500 text-sm sm:text-base">
+                    <option value="all">All Types</option>
+                    <option value="guide">Guides</option>
+                    <option value="video">Videos</option>
+                    <option value="article">Articles</option>
                 </select>
                 <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,11 +33,11 @@
                 </div>
             </div>
             <div class="relative w-full sm:w-48">
-                <select class="w-full px-3 py-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-green-500 text-sm sm:text-base">
-                    <option>Sort by</option>
-                    <option>Most Popular</option>
-                    <option>Newest First</option>
-                    <option>Highest Rated</option>
+                <select id="sortFilter" class="w-full px-3 py-2 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-green-500 text-sm sm:text-base">
+                    <option value="default">Sort by</option>
+                    <option value="popular">Most Popular</option>
+                    <option value="newest">Newest First</option>
+                    <option value="rated">Highest Rated</option>
                 </select>
                 <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -49,20 +49,20 @@
 
         <!-- Filter Tags -->
         <div class="flex flex-wrap gap-2 mb-6">
-            <button class="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800">composting</button>
-            <button class="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800">gardening</button>
-            <button class="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800">waste reduction</button>
-            <button class="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800">solar</button>
-            <button class="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800">DIY</button>
-            <button class="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800">renewable energy</button>
-            <button class="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800">water heating</button>
-            <button class="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800">plastic-free</button>
-            <button class="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800">zero waste</button>
-            <button class="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800">kitchen</button>
+            <button class="tag-filter px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800" data-tag="composting">composting</button>
+            <button class="tag-filter px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800" data-tag="gardening">gardening</button>
+            <button class="tag-filter px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800" data-tag="waste reduction">waste reduction</button>
+            <button class="tag-filter px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800" data-tag="solar">solar</button>
+            <button class="tag-filter px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800" data-tag="DIY">DIY</button>
+            <button class="tag-filter px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800" data-tag="renewable energy">renewable energy</button>
+            <button class="tag-filter px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800" data-tag="water heating">water heating</button>
+            <button class="tag-filter px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800" data-tag="plastic-free">plastic-free</button>
+            <button class="tag-filter px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800" data-tag="zero waste">zero waste</button>
+            <button class="tag-filter px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-xs sm:text-sm font-medium text-gray-800" data-tag="kitchen">kitchen</button>
         </div>
 
         <!-- Resource Cards Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="resource-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Resource Card 1: Home Composting -->
             <div class="bg-white overflow-hidden border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div class="p-4 sm:p-6">
@@ -215,7 +215,7 @@
                                 </svg>
                                 Download
                             </button>
-                            <a href="{{ route('resource.show', 3) }}" class="flex items-center px-2 sm:px-3 py-1 bg-green-600 border border-green-600 unchecked:rounded text-xs sm:text-sm font-medium text-white hover:bg-green-700">
+                            <a href="{{ route('resource.show', 3) }}" class="flex items-center px-2 sm:px-3 py-1 bg-green-600 border border-green-600 rounded text-xs sm:text-sm font-medium text-white hover:bg-green-700">
                                 <svg class="h-3 sm:h-4 w-3 sm:w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -423,4 +423,104 @@
         </div>
     </div>
 </div>
+
+<!-- Add JavaScript at the bottom of the file -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const typeFilter = document.getElementById('typeFilter');
+        const sortFilter = document.getElementById('sortFilter');
+        const tagFilters = document.querySelectorAll('.tag-filter');
+        const resourceCards = document.querySelectorAll('.resource-cards > div');
+
+        // Convert NodeList to Array for sorting
+        const resourceArray = Array.from(resourceCards);
+        let selectedTags = [];
+
+        // Toggle tag filter and update selectedTags
+        tagFilters.forEach(button => {
+            button.addEventListener('click', function () {
+                const tag = this.getAttribute('data-tag');
+                const index = selectedTags.indexOf(tag);
+
+                if (index === -1) {
+                    // Add tag to selectedTags and apply active styles
+                    selectedTags.push(tag);
+                    this.classList.remove('bg-gray-100', 'hover:bg-gray-200', 'text-gray-800');
+                    this.classList.add('bg-green-600', 'text-white');
+                } else {
+                    // Remove tag from selectedTags and revert styles
+                    selectedTags.splice(index, 1);
+                    this.classList.remove('bg-green-600', 'text-white');
+                    this.classList.add('bg-gray-100', 'hover:bg-gray-200', 'text-gray-800');
+                }
+
+                filterAndSortResources();
+            });
+        });
+
+        // Function to filter and sort resources
+        function filterAndSortResources() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const selectedType = typeFilter.value.toLowerCase();
+
+            // Filter resources
+            const filteredResources = resourceArray.filter(card => {
+                const title = card.querySelector('h2').textContent.toLowerCase();
+                const type = card.querySelector('span.bg-green-600').textContent.toLowerCase();
+                const cardTags = Array.from(card.querySelectorAll('.flex-wrap span.bg-gray-100')).map(span => span.textContent.toLowerCase());
+
+                // Check search term (title only)
+                const matchesSearch = title.includes(searchTerm);
+
+                // Check type filter
+                const matchesType = selectedType === 'all' || type === selectedType;
+
+                // Check tag filter (resource must have all selected tags)
+                const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => cardTags.includes(tag));
+
+                return matchesSearch && matchesType && matchesTags;
+            });
+
+            // Sort the filtered resources
+            const selectedSort = sortFilter.value;
+            if (selectedSort !== 'default') {
+                filteredResources.sort((a, b) => {
+                    let valueA, valueB;
+
+                    switch (selectedSort) {
+                        case 'popular':
+                            valueA = parseInt(a.querySelector('span.ml-1').textContent.replace(',', '')) || 0;
+                            valueB = parseInt(b.querySelector('span.ml-1').textContent.replace(',', '')) || 0;
+                            return valueB - valueA; // Descending order (most popular first)
+                        case 'newest':
+                            valueA = new Date(a.querySelector('p.text-gray-600').textContent.split('·')[1].trim());
+                            valueB = new Date(b.querySelector('p.text-gray-600').textContent.split('·')[1].trim());
+                            return valueB - valueA; // Newest first
+                        case 'rated':
+                            valueA = parseFloat(a.querySelectorAll('span.ml-1')[1].textContent) || 0;
+                            valueB = parseFloat(b.querySelectorAll('span.ml-1')[1].textContent) || 0;
+                            return valueB - valueA; // Highest rated first
+                    }
+                });
+            }
+
+            // Re-append sorted and filtered resources to the DOM
+            const resourceContainer = document.querySelector('.resource-cards');
+            resourceContainer.innerHTML = '';
+            filteredResources.forEach(card => resourceContainer.appendChild(card));
+
+            // Show all cards if no filters are applied, but respect sorting
+            if (searchTerm === '' && selectedType === 'all' && selectedTags.length === 0 && selectedSort === 'default') {
+                resourceContainer.innerHTML = '';
+                resourceArray.forEach(card => resourceContainer.appendChild(card));
+            }
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', filterAndSortResources);
+        typeFilter.addEventListener('change', filterAndSortResources);
+        sortFilter.addEventListener('change', filterAndSortResources);
+    });
+</script>
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class=" min-h-screen py-8">
+<div class="min-h-screen py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header Section -->
         <div class="flex justify-between items-center mb-6">
@@ -19,24 +19,24 @@
         <div class="mb-8">
             <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
                 <div class="relative flex-grow">
-                    <input type="text" placeholder="Search projects..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500">
+                    <input type="text" id="searchInput" placeholder="Search projects..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500">
                 </div>
             </div>
             
             <!-- Categories -->
             <div class="mt-4 flex flex-wrap gap-2">
-                <button class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">All Categories</button>
-                <button class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">Urban Greening</button>
-                <button class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">Water Conservation</button>
-                <button class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">Waste Reduction</button>
-                <button class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">Biodiversity</button>
-                <button class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">Renewable Energy</button>
-                <button class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50">Food Systems</button>
+                <button class="category-filter px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700" data-category="all">All Categories</button>
+                <button class="category-filter px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50" data-category="urban greening">Urban Greening</button>
+                <button class="category-filter px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50" data-category="water conservation">Water Conservation</button>
+                <button class="category-filter px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50" data-category="waste reduction">Waste Reduction</button>
+                <button class="category-filter px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50" data-category="biodiversity">Biodiversity</button>
+                <button class="category-filter px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50" data-category="renewable energy">Renewable Energy</button>
+                <button class="category-filter px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50" data-category="food systems">Food Systems</button>
             </div>
         </div>
 
         <!-- Projects Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="project-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <!-- Project Card 1 - Community Garden -->
             <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow">
                 <div class="relative h-48 bg-gray-100">
@@ -147,7 +147,7 @@
                     </div>
                     
                     <p class="mt-3 text-sm text-gray-600">
-                        Organizing a one-day cleanup effort to remove trash and invasive species from Cedar Creek, followed b...
+                        Organizing a one-day cleanup effort to remove trash and invasive species from Cedar Creek, followed by a community picnic...
                     </p>
                     
                     <!-- Progress Bar -->
@@ -223,7 +223,7 @@
                     </div>
                     
                     <p class="mt-3 text-sm text-gray-600">
-                        Working with local schools to implement waste reduction strategies including composting...
+                        Working with local schools to implement waste reduction strategies including composting, recycling, and education programs...
                     </p>
                     
                     <!-- Progress Bar -->
@@ -299,7 +299,7 @@
                     </div>
                     
                     <p class="mt-3 text-sm text-gray-600">
-                        Organizing a bulk purchase of residential solar panel systems to reduce costs through group buying power.
+                        Organizing a bulk purchase of residential solar panel systems to reduce costs through group buying power...
                     </p>
                     
                     <!-- Progress Bar -->
@@ -340,12 +340,73 @@
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
-            <!-- Project Card 5 - Food Waste Reduction Campaign -->
-            
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    
-@endsection 
+<!-- Add JavaScript at the bottom of the file -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilters = document.querySelectorAll('.category-filter');
+        const projectCards = document.querySelectorAll('.project-cards > div');
+
+        // Convert NodeList to Array for filtering
+        const projectArray = Array.from(projectCards);
+        let selectedCategory = 'all';
+
+        // Toggle category filter and update selectedCategory
+        categoryFilters.forEach(button => {
+            button.addEventListener('click', function () {
+                // Remove active styles from all buttons
+                categoryFilters.forEach(btn => {
+                    btn.classList.remove('bg-green-600', 'text-white', 'hover:bg-green-700');
+                    btn.classList.add('bg-white', 'border', 'border-gray-300', 'text-gray-700', 'hover:bg-gray-50');
+                });
+
+                // Add active styles to the clicked button
+                this.classList.remove('bg-white', 'border', 'border-gray-300', 'text-gray-700', 'hover:bg-gray-50');
+                this.classList.add('bg-green-600', 'text-white', 'hover:bg-green-700');
+
+                // Update selected category
+                selectedCategory = this.getAttribute('data-category');
+                filterProjects();
+            });
+        });
+
+        // Function to filter projects
+        function filterProjects() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            // Filter projects
+            const filteredProjects = projectArray.filter(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p.text-gray-600').textContent.toLowerCase();
+                const category = card.querySelector('span.rounded-full').textContent.toLowerCase().trim();
+
+                // Check search term (title or description)
+                const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+
+                // Check category filter
+                const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+
+                return matchesSearch && matchesCategory;
+            });
+
+            // Re-append filtered projects to the DOM
+            const projectContainer = document.querySelector('.project-cards');
+            projectContainer.innerHTML = '';
+            filteredProjects.forEach(card => projectContainer.appendChild(card));
+
+            // Show all cards if no filters are applied
+            if (searchTerm === '' && selectedCategory === 'all') {
+                projectContainer.innerHTML = '';
+                projectArray.forEach(card => projectContainer.appendChild(card));
+            }
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', filterProjects);
+    });
+</script>
+@endsection

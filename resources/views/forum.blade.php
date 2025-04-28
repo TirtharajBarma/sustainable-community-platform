@@ -22,7 +22,16 @@
                 <p class="text-gray-600 text-sm mb-4">Browse by topic</p>
                 
                 <ul class="space-y-4">
-                    <li class="flex items-center justify-between">
+                    <li class="flex items-center justify-between category-item" data-category="all">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                            <span class="text-gray-500">All Categories</span>
+                        </div>
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">150</span>
+                    </li>
+                    <li class="flex items-center justify-between category-item" data-category="Waste Management">
                         <div class="flex items-center">
                             <svg class="w-5 h-5 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
@@ -31,8 +40,7 @@
                         </div>
                         <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">46</span>
                     </li>
-                    
-                    <li class="flex items-center justify-between">
+                    <li class="flex items-center justify-between category-item" data-category="Renewable Energy">
                         <div class="flex items-center">
                             <svg class="w-5 h-5 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -41,8 +49,7 @@
                         </div>
                         <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">32</span>
                     </li>
-                    
-                    <li class="flex items-center justify-between">
+                    <li class="flex items-center justify-between category-item" data-category="Recycling">
                         <div class="flex items-center">
                             <svg class="w-5 h-5 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -51,8 +58,7 @@
                         </div>
                         <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">28</span>
                     </li>
-                    
-                    <li class="flex items-center justify-between">
+                    <li class="flex items-center justify-between category-item" data-category="Sustainable Living">
                         <div class="flex items-center">
                             <svg class="w-5 h-5 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
@@ -61,8 +67,7 @@
                         </div>
                         <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">64</span>
                     </li>
-                    
-                    <li class="flex items-center justify-between">
+                    <li class="flex items-center justify-between category-item" data-category="Eco-friendly Products">
                         <div class="flex items-center">
                             <svg class="w-5 h-5 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
@@ -80,7 +85,7 @@
             <!-- Search and Filter Options -->
             <div class="flex flex-col md:flex-row justify-between mb-6 gap-4">
                 <div class="w-full md:w-2/3">
-                    <input type="text" placeholder="Search threads..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                    <input type="text" id="searchInput" placeholder="Search threads..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
                 </div>
                 <div class="w-full md:w-1/3 flex justify-end">
                     <div class="inline-flex rounded-md shadow-sm" role="group">
@@ -92,16 +97,14 @@
             </div>
             
             <!-- Thread List -->
-            <div class="space-y-4">
+            <div class="thread-list space-y-4">
                 <!-- Thread 1 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden thread-item">
                     <div class="p-6">
                         <div class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded inline-block mb-2">Waste Management</div>
                         <h3 class="text-xl font-bold text-gray-900 mb-1">Tips for reducing plastic waste in everyday life</h3>
                         <p class="text-sm text-gray-600 mb-3">Posted by EcoWarrior</p>
-                        
                         <p class="text-gray-500 mb-4">I've been trying to minimize plastic waste in my daily routine and wanted to share some effective strategies that worked for me...</p>
-                        
                         <div class="flex items-center text-sm text-gray-500 gap-4">
                             <div class="flex items-center">
                                 <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -126,14 +129,12 @@
                 </div>
                 
                 <!-- Thread 2 -->
-                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden thread-item">
                     <div class="p-6">
                         <div class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded inline-block mb-2">Renewable Energy</div>
                         <h3 class="text-xl font-bold text-gray-900 mb-1">Solar panel installation: DIY or professional?</h3>
                         <p class="text-sm text-gray-600 mb-3">Posted by SolarPowered</p>
-                        
                         <p class="text-gray-500 mb-4">I'm considering installing solar panels on my home and am weighing the pros and cons of doing it myself versus hiring professionals...</p>
-                        
                         <div class="flex items-center text-sm text-gray-500 gap-4">
                             <div class="flex items-center">
                                 <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -160,4 +161,66 @@
         </div>
     </div>
 </div>
+
+<!-- Add JavaScript for Search and Category Sorting -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const threadItems = document.querySelectorAll('.thread-list .thread-item');
+        const categoryItems = document.querySelectorAll('.category-item');
+        let selectedCategory = 'all';
+
+        // Function to filter threads based on search and category
+        function filterThreads() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            threadItems.forEach(thread => {
+                const title = thread.querySelector('h3').textContent.toLowerCase();
+                const category = thread.querySelector('div.bg-green-100').textContent;
+
+                // Check if thread matches the search term (title only)
+                const matchesSearch = title.includes(searchTerm);
+                
+                // Check if thread matches the selected category
+                const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+
+                // Show thread only if it matches both search and category filters
+                thread.style.display = (matchesSearch && matchesCategory) ? 'block' : 'none';
+            });
+        }
+
+        // Search Functionality
+        searchInput.addEventListener('input', filterThreads);
+
+        // Category Sorting Functionality
+        categoryItems.forEach(item => {
+            item.addEventListener('click', function () {
+                // Remove active class from all category items
+                categoryItems.forEach(i => i.classList.remove('active'));
+                // Add active class to clicked category
+                this.classList.add('active');
+                // Update selected category
+                selectedCategory = this.getAttribute('data-category');
+                // Apply filters
+                filterThreads();
+            });
+        });
+
+        // Set default active category (All Categories)
+        document.querySelector('[data-category="all"]').classList.add('active');
+    });
+</script>
+
+<style>
+    .category-item {
+        cursor: pointer;
+    }
+    .category-item:hover span.text-gray-500 {
+        color: #15803d; /* green-700 */
+    }
+    .category-item.active span.text-gray-500 {
+        color: #15803d; /* green-700 */
+        font-weight: 600;
+    }
+</style>
 @endsection

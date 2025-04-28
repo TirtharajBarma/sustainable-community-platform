@@ -18,39 +18,39 @@
         <div class="flex justify-between items-center mb-4">
             <div class="flex items-center space-x-4">
                 <div class="relative flex-grow">
-                    <input type="text" placeholder="Search events..." class="text-sm w-48 px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <input type="text" id="searchInput" placeholder="Search events..." class="text-sm w-48 px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
                 </div>
                 <div class="flex items-center space-x-2">
                     <span class="text-sm text-gray-700 font-medium">Type:</span>
-                    <button class="px-2 py-0.5 bg-green-600 text-white rounded-full text-xs font-medium">ALL</button>
-                    <button class="px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100">Workshop</button>
-                    <button class="px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100">Panel</button>
-                    <button class="px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100">Webinar</button>
-                    <button class="px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100">Class</button>
-                    <button class="px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100">Festival</button>
+                    <button class="type-filter px-2 py-0.5 bg-green-600 text-white rounded-full text-xs font-medium" data-type="all">ALL</button>
+                    <button class="type-filter px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100" data-type="workshop">Workshop</button>
+                    <button class="type-filter px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100" data-type="panel">Panel</button>
+                    <button class="type-filter px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100" data-type="webinar">Webinar</button>
+                    <button class="type-filter px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100" data-type="class">Class</button>
+                    <button class="type-filter px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100" data-type="festival">Festival</button>
                 </div>
                 <div class="flex items-center space-x-2">
                     <span class="text-sm text-gray-700 font-medium">Format:</span>
-                    <button class="px-2 py-0.5 bg-green-600 text-white rounded-full text-xs font-medium">ALL</button>
-                    <button class="px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100 flex items-center">
+                    <button class="format-filter px-2 py-0.5 bg-green-600 text-white rounded-full text-xs font-medium" data-format="all">ALL</button>
+                    <button class="format-filter px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100 flex items-center" data-format="in-person">
                         <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.243l-4.243-4.243m0 0L9.172 7.757m4.242 4.243h-4.243m4.243 0v4.243" />
                         </svg>
                         In-Person
                     </button>
-                    <button class="px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100 flex items-center">
+                    <button class="format-filter px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100 flex items-center" data-format="online">
                         <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5h6m-3-3v6m-3 3h6m-9 3h12" />
                         </svg>
                         Online
                     </button>
-                    <button class="px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100">Hybrid</button>
+                    <button class="format-filter px-2 py-0.5 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-800 hover:bg-gray-100" data-format="hybrid">Hybrid</button>
                 </div>
             </div>
         </div>
 
         <!-- Event Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-15">
+        <div class="event-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-15">
             <!-- Event Card 1 -->
             <div class="bg-white overflow-hidden border border-gray-100 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div class="relative">
@@ -221,4 +221,83 @@
         </div>
     </div>
 </div>
+
+<!-- Add JavaScript for Search, Type, and Format Filtering -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const typeFilters = document.querySelectorAll('.type-filter');
+        const formatFilters = document.querySelectorAll('.format-filter');
+        const eventCards = document.querySelectorAll('.event-cards > div');
+
+        let selectedType = 'all';
+        let selectedFormat = 'all';
+
+        // Toggle type filter and update selectedType
+        typeFilters.forEach(button => {
+            button.addEventListener('click', function () {
+                // Remove active styles from all type buttons
+                typeFilters.forEach(btn => {
+                    btn.classList.remove('bg-green-600', 'text-white');
+                    btn.classList.add('bg-white', 'border', 'border-gray-300', 'text-gray-800', 'hover:bg-gray-100');
+                });
+
+                // Add active styles to the clicked button
+                this.classList.remove('bg-white', 'border', 'border-gray-300', 'text-gray-800', 'hover:bg-gray-100');
+                this.classList.add('bg-green-600', 'text-white');
+
+                // Update selected type
+                selectedType = this.getAttribute('data-type');
+                filterEvents();
+            });
+        });
+
+        // Toggle format filter and update selectedFormat
+        formatFilters.forEach(button => {
+            button.addEventListener('click', function () {
+                // Remove active styles from all format buttons
+                formatFilters.forEach(btn => {
+                    btn.classList.remove('bg-green-600', 'text-white');
+                    btn.classList.add('bg-white', 'border', 'border-gray-300', 'text-gray-800', 'hover:bg-gray-100');
+                });
+
+                // Add active styles to the clicked button
+                this.classList.remove('bg-white', 'border', 'border-gray-300', 'text-gray-800', 'hover:bg-gray-100');
+                this.classList.add('bg-green-600', 'text-white');
+
+                // Update selected format
+                selectedFormat = this.getAttribute('data-format');
+                filterEvents();
+            });
+        });
+
+        // Function to filter events
+        function filterEvents() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            eventCards.forEach(card => {
+                const title = card.querySelector('h2').textContent.toLowerCase();
+                const type = card.querySelector('span.rounded-md').textContent.toLowerCase().trim();
+                const formatElement = card.querySelector('div.flex.items-center.mb-2 span.text-xs.text-gray-600');
+                const formatText = formatElement.textContent.toLowerCase().trim();
+                const format = formatText.includes('zoom') || formatText.includes('youtube') ? 'online' : 'in-person';
+
+                // Check search term (title)
+                const matchesSearch = title.includes(searchTerm);
+
+                // Check type filter
+                const matchesType = selectedType === 'all' || type === selectedType;
+
+                // Check format filter
+                const matchesFormat = selectedFormat === 'all' || format === selectedFormat;
+
+                // Show card only if it matches all filters
+                card.style.display = matchesSearch && matchesType && matchesFormat ? 'block' : 'none';
+            });
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', filterEvents);
+    });
+</script>
 @endsection
