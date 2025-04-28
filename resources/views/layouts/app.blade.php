@@ -21,12 +21,13 @@
             </div>
             
             <!-- Navigation Links - Center -->
-            <div class="hidden md:flex space-x-8">
-                <a href="{{ route('home') }}" class="text-green-700 hover:text-green-800 px-3 py-2 text-sm font-medium">Home</a>
-                <a href="{{ route('forum') }}" class="text-gray-500 hover:text-green-700 px-3 py-2 text-sm font-medium">Forums</a>
-                <a href="{{ route('resources') }}" class="text-gray-500 hover:text-green-700 px-3 py-2 text-sm font-medium">Resources</a>
-                <a href="{{ route('projects') }}" class="text-gray-500 hover:text-green-700 px-3 py-2 text-sm font-medium">Projects</a>
-                <a href="{{ route('events') }}" class="text-gray-500 hover:text-green-700 px-3 py-2 text-sm font-medium">Events</a>
+            <!-- Navigation Links - Center -->
+            <div class="hidden md:flex justify-center flex-1 space-x-6">
+                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'text-green-700' : 'text-gray-500' }} hover:text-green-700 text-sm font-medium">Home</a>
+                <a href="{{ route('forum') }}" class="{{ request()->routeIs('forum') ? 'text-green-700' : 'text-gray-500' }} hover:text-green-700 text-sm font-medium">Forums</a>
+                <a href="{{ route('resources') }}" class="{{ request()->routeIs('resources') ? 'text-green-700' : 'text-gray-500' }} hover:text-green-700 text-sm font-medium">Resources</a>
+                <a href="{{ route('projects') }}" class="{{ request()->routeIs('projects') ? 'text-green-700' : 'text-gray-500' }} hover:text-green-700 text-sm font-medium">Projects</a>
+                <a href="{{ route('events') }}" class="{{ request()->routeIs('events') ? 'text-green-700' : 'text-gray-500' }} hover:text-green-700 text-sm font-medium">Events</a>
             </div>
             
             <!-- User Actions - Right -->
