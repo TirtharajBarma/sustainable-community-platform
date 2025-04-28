@@ -12,7 +12,7 @@
                     Join our community of environmentally conscious individuals working together to create a more sustainable world through knowledge sharing, collaboration, and local action.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-3">
-                    <a href="{{ url('/join') }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium text-white bg-[#5D8726] hover:bg-green-700 py-2 px-4">
+                    <a href="{{ url('/login') }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium text-white bg-[#5D8726] hover:bg-green-700 py-2 px-4">
                         Join the Community
                     </a>
                     <a href="#" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 py-2 px-4">
@@ -145,7 +145,7 @@
             <p class="max-w-2xl mx-auto mb-8 text-white text-base">
                 Join our growing community of environmental advocates and start contributing to a sustainable future today.
             </p>
-            <a href="{{ url('/join') }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium text-green-700 bg-white hover:bg-gray-100 py-2 px-4">
+            <a href="{{ url('/login') }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium text-green-700 bg-white hover:bg-gray-100 py-2 px-4">
                 Join SustainaConnect
             </a>
         </div>

@@ -31,21 +31,34 @@
             </div>
             
             <!-- User Actions - Right -->
+            <!-- User Actions - Right -->
             <div class="hidden md:flex items-center space-x-4">
-                <a href="{{ route('login') }}" class="flex items-center text-gray-700 hover:text-green-700 px-3 py-2 text-sm font-medium border border-gray-300 rounded-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14" />
-                    </svg>
-                    Sign In
-                </a>
-                <a href="{{ route('register') }}" class="bg-[#4D7C0F] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                    <div class="flex items-center">
+                @auth
+                    <!-- Show this if the user is logged in -->
+                    <span class="text-gray-700 text-sm font-medium">Welcome, {{ Auth::user()->name }}</span>
+                    <form action="{{ route('logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="bg-[#4D7C0F] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                            Logout
+                        </button>
+                    </form>
+                @else
+                    <!-- Show this if the user is not logged in -->
+                    <a href="{{ route('login') }}" class="flex items-center text-gray-700 hover:text-green-700 px-3 py-2 text-sm font-medium border border-gray-300 rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14" />
                         </svg>
-                        Join Now
-                    </div>
-                </a>
+                        Sign In
+                    </a>
+                    <a href="{{ route('register') }}" class="bg-[#4D7C0F] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            Join Now
+                        </div>
+                    </a>
+                @endauth
             </div>
             
             <!-- Mobile menu button -->
